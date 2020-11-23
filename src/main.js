@@ -11,4 +11,6 @@ import '@/assets/css/iconfont.css'
 
 import { navCurrent } from '@/directives'
 
-createApp(App).directive('navCurrent', navCurrent).use(store).use(router).mount('#app')
+import MyPlugin from '@/components/common';
+
+createApp(App).directive('navCurrent', navCurrent).use(store).use(router).use(MyPlugin).mount('#app')

@@ -26,6 +26,7 @@
 import NavItem from './item'
 import { computed, ref } from 'vue'
 import navData from '@/data/nav'
+import { useStore } from 'vuex'
 
 export default {
     name: 'NavBar',
@@ -33,6 +34,8 @@ export default {
         NavItem
     },
     setup() {
+        const store = useStore();
+
         const currentIndex = ref(0);
 
         const navWidth = computed({
@@ -43,7 +46,17 @@ export default {
 
 
         const navClick = (e) => {
-            currentIndex.value = e.target.dataset.index
+            const className = e.target.className;
+
+            if(className === 'nav-item') {
+                const tar = e.target,
+                      index = tar.dataset.index,
+                      conName = tar.innerHTML;
+
+                console.log(conName);
+                currentIndex.value = index;
+                store.commit('setConsName', conName);
+            }
         }
 
         return {

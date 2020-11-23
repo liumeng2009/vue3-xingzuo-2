@@ -1,39 +1,38 @@
 <template>
     <div class="container">
-        Today
-        <input ref="input1" id="input1" >
-        <button @click="handleClick">展示</button>
+        <ConsCard 
+            :name="todayData.name"
+            :allIndex="todayData.all"    
+        />
     </div>
 </template>
 
 <script>
 import getData from '@/services';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 
 export default {
     name: 'Today',
     setup() {
-        const store = useStore();
-        const input1 = ref(null);
-        const handleClick = () => {
-            console.log(document.getElementById('input1').value);
-            console.log(input1);
-        }
+        const store = useStore(),
+              state = store.state;
+        console.log(state.today);
         onMounted(() => {
-            // getData(store);
-            console.log(document.getElementById('input1'));
-            console.log(input1);
-        })
+            getData(store);
+        });
 
         return {
-            handleClick,
-            input1
+            todayData: computed(() => state.today)
         }
     }
 }
 </script>
 
 <style lang='scss' scoped>
-
+    .container{
+        position: absolute;
+        top: .82rem;
+        left: 0;
+    }
 </style>

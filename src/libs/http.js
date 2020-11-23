@@ -4,7 +4,7 @@ import { appKey } from '@/config/config.js'
 function axiosGet(options) {
     axios(options.url + '&key=' + appKey)
     .then(res => {
-        options.success(res);
+        options.success(res.data);
     })
     .catch(error => {
         options.error(error);
